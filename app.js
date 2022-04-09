@@ -10,11 +10,15 @@ function getJokes(e){
 
     xhr.onload = function() {
         if(this.status === 200) {
-            const response = JSON.parse(this.responseText);
-            
+            const response = JSON.parse(this.responseText); // We initially get a JSON string so we need to parse it to an object we can manipulate.
+            // We get an object which has 'type' & 'value'
+            // Type = server success
+            // Value = array of jokes
             let output = '';
 
             if(response.type === 'success') {
+                // Now we want to loop through this array - so we want to loop through the 'value' - not the response
+                // This is why it is response.value.forEach.
                 response.value.forEach(function(joke){
                     output += `<li>${joke.joke}</li>`;
                 });
@@ -29,4 +33,3 @@ function getJokes(e){
 
     e.preventDefault();
 };
-
